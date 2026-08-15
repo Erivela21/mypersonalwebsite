@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# enrique-rivela
 
-## Getting Started
-
-First, run the development server:
+A personal site. Not a portfolio, not a CV — a life told in chapters.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`Next.js 16 · React 19 · TypeScript · Tailwind v4 · Motion 13 · SVG · Canvas 2D · Web Audio`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Voice
 
-## Learn More
+The copy rules are not stylistic preferences, they are the brief:
 
-To learn more about Next.js, take a look at the following resources:
+- **No em dashes.** Anywhere in user-facing text. They are the clearest tell.
+- **Casual and first person**, the way he actually talks. Contractions wanted.
+- Section labels are first person too. "Languages I speak", not "Speaks".
+- No clever inversions, no rule-of-three, no aphorisms. If a line sounds like it
+  was written to be quoted, it is wrong for this site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Change the words, not the code
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Everything the site says lives in [`src/content/profile.ts`](src/content/profile.ts).**
+No copy is hardcoded in a component. If a fact is wrong, fix it there and it
+updates everywhere — headings, alt text, share card, page metadata.
 
-## Deploy on Vercel
+Optional fields render nothing when empty, so the site is complete as it stands
+and quietly improves as you add to it.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Things to drop in
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Each of these lights up on its own the moment the file exists.
+
+### Music → `public/audio/`
+
+Add mp3s, then list them in `sound.tracks`:
+
+```ts
+tracks: [
+  { title: "Track name", src: "/audio/track.mp3", cover: "/media/covers/art.png" },
+],
+```
+
+Until then the Sound chapter shows the playable strip only — which is a real
+instrument, not a decorative waveform, so the section is honest either way.
+
+### Cover art → `public/media/covers/`
+
+Any square image. Reference it from a track's `cover`.
+
+### The ultra route → `moving.race`
+
+```ts
+race: {
+  finishTime: "18:42",        // appears as a stat
+  elevationGainM: 4200,       // appears as a stat
+  date: "June 2025",
+  location: "Portugal",
+  gpx: "/data/estrelacor.gpx",
+}
+```
+
+The chart currently draws generic terrain and says so underneath. Supplying
+`gpx` replaces it with the real profile and removes that note. Any stat left
+`null` is simply not shown — nothing is ever estimated.
+
+### Photographs → `public/media/`
+
+Add the file, then add an entry to `elsewhere.shots` with real `w`/`h` (the
+intrinsic pixel size — it reserves the space and prevents layout shift) and a
+truthful caption.
+
+---
+
+## How it's put together
+
+```
+src/
+  content/profile.ts     every fact, one file
+  app/                   layout, page, metadata, OG image, robots, sitemap
+  components/
+    chapters/            one file per chapter of the site
+    art/                 Facets, Journey, Ridge, SoundStrip, Network, BookCover
+    primitives/          Chapter, Reveal, SplitHeading, Photo, Film, Thread
+    chrome/              rail, cursor, theme toggle, footer, motion provider
+  lib/                   motion vocabulary, hooks, the small synth
+```
+
+Chapters are server components; only the interactive art ships JavaScript.
+
+### Chapters
+
+`Hero · Things I do · Moving · Sound · Building · Cyber · Now`
+
+There is no Places chapter. It was cut, so the only place the Madrid → Menlo
+Park → Madrid → São Paulo journey is now stated is the first paragraph of
+`now.body`. Don't delete that line without putting it somewhere else.
+
+### The line
+
+One line runs the length of the page and changes meaning per chapter: a ridge
+over 103km, a waveform, an edge in a network. `Thread` carries it between
+chapters, drawing against scroll position rather than on a timer. It never
+terminates.
+
+### The hero
+
+Real photographs, not illustration. An earlier version used a drawn landscape
+and it read as generic no matter how it was drawn. `Facets` arranges five of
+Enrique's own photos, one per thing the site is about, each drifting at its own
+rate against the pointer. Card placement in `LAYOUT` is hand-set on purpose:
+evenly spaced reads as a gallery, random reads as a mistake.
+
+Each facet carries a `focus` value in the content file, because a 3:4 crop of a
+portrait photo will otherwise cut the subject out.
+
+### Motion
+
+Springs, not easing curves. One entrance: a 14px rise plus a fade.
+
+**If a motion doesn't explain something about the content, it doesn't ship.**
+
+`MotionConfig reducedMotion="user"` in the root layout means components should
+**not** branch on the motion preference for ordinary animations — Motion snaps
+transforms to their targets automatically. Branch only for perpetual loops,
+scroll-linked drawing, and canvas loops, and when you do, use
+`useReducedMotionSafe` from `lib/hooks` rather than Motion's own hook: the
+latter can report a different value on the first client render than the server
+assumed, which breaks hydration.
+
+### Theme
+
+`data-theme` on `<html>` is the single source of truth. An inline script in the
+layout sets it before first paint; the toggle writes to it; the toggle reads it
+back with `useSyncExternalStore`. Dark isn't an inverted light theme — it has
+its own palette.
+
+### Canvas
+
+`Network` and `SoundStrip` pause when scrolled out of view and read their
+colours through `useCssVars`, which re-resolves on theme change. Canvas can't
+read `var(--accent)` on its own.
+
+Audio is never constructed until a real gesture, and nothing ever autoplays.

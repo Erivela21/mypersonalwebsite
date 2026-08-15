@@ -1,26 +1,316 @@
 @import "tailwindcss";
 
+/* Dark mode is driven by an explicit attribute so the toggle can override the
+   system preference in both directions. The theme script sets it before paint. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ══════════════════════════════════════════════════════════════ tokens ══ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* — Green World, day —
+     Sampled from Enrique's own Galicia photographs. */
+  --paper: #f6f4ed;
+  --paper-raised: #fbfaf6;
+  --paper-sunk: #efece1;
+
+  --ink: #1e2a22;
+  --ink-soft: #4a574e;
+  --ink-faint: #6b7a70;
+  --rule: #ded8ca;
+
+  /* Accents carry most of the colour on the page, so they are saturated
+     enough to actually read as colour rather than as tinted grey. The
+     `-text` pair is the darkened version that still passes contrast at
+     small sizes. */
+  --moss: #3f7a50;
+  --moss-text: #2f5c3c;
+  --river: #3a819a;
+  --river-text: #2b657b;
+  --clay: #c85f35;
+  --clay-text: #9c4522;
+  --gold: #c08a1e;
+  --gold-text: #866010;
+  --stone: #7d897c;
+  --stone-text: #556052;
+  --teal: #248087;
+  --teal-text: #1b666c;
+  --sand: #e8dcc2;
+
+  /* Default chapter tint; each <Chapter> overrides these two. */
+  --accent: var(--moss);
+  --accent-text: var(--moss-text);
+
+  --grain-opacity: 0.05;
+  --grain-blend: multiply;
+
+  --shadow-soft: 0 1px 2px rgb(30 42 34 / 0.04), 0 8px 24px -12px rgb(30 42 34 / 0.12);
 }
+
+/* Explicit dark, and system-dark when the user hasn't chosen light. */
+[data-theme="dark"] {
+  /* — Green World, midnight —
+     Anchored on the dusk alpenglow in snow.png. Never a neutral grey. */
+  --paper: #0f1512;
+  --paper-raised: #18211b;
+  --paper-sunk: #0a0f0c;
+
+  --ink: #e9e7db;
+  --ink-soft: #a8b3a8;
+  --ink-faint: #7e8c81;
+  --rule: #27312b;
+
+  --moss: #7ec08f;
+  --moss-text: #96cfa4;
+  --river: #6bb4d0;
+  --river-text: #8bc7dd;
+  --clay: #ec9166;
+  --clay-text: #f2a883;
+  --gold: #e3ba5b;
+  --gold-text: #ecc97d;
+  --stone: #98a396;
+  --stone-text: #adb8ab;
+  --teal: #52c0c8;
+  --teal-text: #74cfd6;
+  --sand: #2a3128;
+
+  --accent: var(--moss);
+  --accent-text: var(--moss-text);
+
+  --grain-opacity: 0.07;
+  --grain-blend: overlay;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+}
+
+/* Tint classes. Each chapter sets one; everything inside inherits. */
+.tint-moss  { --accent: var(--moss);  --accent-text: var(--moss-text); }
+.tint-river { --accent: var(--river); --accent-text: var(--river-text); }
+.tint-clay  { --accent: var(--clay);  --accent-text: var(--clay-text); }
+.tint-gold  { --accent: var(--gold);  --accent-text: var(--gold-text); }
+.tint-stone { --accent: var(--stone); --accent-text: var(--stone-text); }
+.tint-teal  { --accent: var(--teal);  --accent-text: var(--teal-text); }
+
+/* ═══════════════════════════════════════════════════ tailwind bridge ══ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-raised: var(--paper-raised);
+  --color-sunk: var(--paper-sunk);
+  --color-ink: var(--ink);
+  --color-soft: var(--ink-soft);
+  --color-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-sand: var(--sand);
+  --color-moss: var(--moss);
+  --color-river: var(--river);
+  --color-clay: var(--clay);
+  --color-gold: var(--gold);
+  --color-teal: var(--teal);
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ════════════════════════════════════════════════════════════════ base ══ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+/* Fraunces carries the warmth. SOFT rounds the terminals, WONK lets a few
+   letterforms go slightly off — that's the handmade feeling, in one axis. */
+.font-display,
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 26%, transparent);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════════════════════════ utilities ══ */
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* A measured fact set in mono reads as recorded. In the body face it reads
+   as claimed. That distinction is doing real work on this site. */
+.numeral {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.prose-measure {
+  max-width: 34rem;
+}
+
+.rule-hair {
+  border-color: var(--rule);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--paper-raised);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 180ms ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* A soft field of the chapter's own colour, sitting behind its content.
+   This is what stops long text sections reading as empty white space, and
+   it is why each chapter feels like a different room. */
+.wash {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wash::before,
+.wash::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.wash::before {
+  top: -14%;
+  left: -6%;
+  width: 46%;
+  height: 62%;
+  background: color-mix(in oklab, var(--accent) 20%, transparent);
+}
+
+.wash::after {
+  right: -10%;
+  bottom: -18%;
+  width: 42%;
+  height: 58%;
+  background: color-mix(in oklab, var(--accent) 13%, transparent);
+}
+
+[data-theme="dark"] .wash::before {
+  background: color-mix(in oklab, var(--accent) 13%, transparent);
+}
+[data-theme="dark"] .wash::after {
+  background: color-mix(in oklab, var(--accent) 9%, transparent);
+}
+
+/* Paper grain. One fixed layer over everything — the cheapest thing that
+   stops a website feeling like a website. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hide the native cursor only where our own is actually drawn. */
+.custom-cursor,
+.custom-cursor a,
+.custom-cursor button,
+.custom-cursor [role="button"] {
+  cursor: none;
+}
+
+/* ═════════════════════════════════════════════════════ reduced motion ══ */
+
+/* Not a kill switch — a second design. Everything lands in its final state,
+   ambient loops stop, and the site stays intact. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .custom-cursor,
+  .custom-cursor a,
+  .custom-cursor button {
+    cursor: auto;
+  }
 }
