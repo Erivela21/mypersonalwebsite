@@ -35,10 +35,12 @@ Two things in there are deliberate:
 - **Coordinates are centred in a 0..1 box with true aspect preserved**, so the
   component can use a fixed viewBox and never recompute a bounding box.
 
-Every number in the Moving chapter is measured from this file. Note that the
-recorded distance is 89.2 km, while Enrique described the race as 103 km. The
-recorded figure is what the site shows, because it is the one that can be
-verified. If the discrepancy is resolved, change it in `moving.stats`.
+Every number in the Moving chapter is measured from this file.
+
+**The two distance figures are the point of that chapter.** He entered the 103 km
+race and covered 89.2 km of it before stopping. Do not collapse them into one
+number, do not round 89.2 up, and do not describe the run as a finish. The trace
+ends where he stopped, which is why the end marker on the map reads `STOPPED`.
 
 ## Voice
 

@@ -100,7 +100,7 @@ export function RouteMap() {
           viewBox={`0 ${MAP_Y0} ${W} ${MAP_H}`}
           className="h-auto w-full overflow-visible"
           role="img"
-          aria-label={`The route of the ${route.name} race, ${route.distanceKm} kilometres through the Serra da Estrela`}
+          aria-label={`The ${route.distanceKm} kilometres of the ${route.name} course that Enrique covered through the Serra da Estrela, from the start to the point where he stopped`}
         >
           {/* A faint full trace underneath, so the shape reads as a whole
               course even before you have scrolled through it. */}
@@ -123,8 +123,22 @@ export function RouteMap() {
             style={reduced ? { pathLength: 1 } : { pathLength: p }}
           />
 
+          {/* The trace ends where he stopped, not at a finish line. Labelling
+              it anything else would be the one dishonest thing on this page. */}
           <circle cx={PTS[0][0]} cy={PTS[0][1]} r="7" fill="var(--accent)" />
           <circle cx={PTS[0][0]} cy={PTS[0][1]} r="3" fill="var(--paper)" />
+          <text
+            x={PTS[0][0]}
+            y={PTS[0][1] + 26}
+            textAnchor="middle"
+            fill="var(--ink-faint)"
+            fontSize="15"
+            fontFamily="var(--font-mono)"
+            letterSpacing="0.14em"
+          >
+            START
+          </text>
+
           <circle
             cx={finish[0]}
             cy={finish[1]}
@@ -133,6 +147,17 @@ export function RouteMap() {
             stroke="var(--accent)"
             strokeWidth="2.4"
           />
+          <text
+            x={finish[0]}
+            y={finish[1] + 26}
+            textAnchor="middle"
+            fill="var(--ink-faint)"
+            fontSize="15"
+            fontFamily="var(--font-mono)"
+            letterSpacing="0.14em"
+          >
+            STOPPED
+          </text>
 
           {!reduced && (
             <motion.g style={{ x: mapX, y: mapY }}>

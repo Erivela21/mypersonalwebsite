@@ -49,6 +49,17 @@ export function Moving() {
               <RevealItem>
                 <p className="mono text-faint">Race</p>
                 <p className="mt-1.5 text-[1.75rem] leading-none">{route.name}</p>
+                {/* Anyone can go and check the run themselves, which is a
+                    stronger claim than any number set in a nice typeface. */}
+                <a
+                  href={moving.stravaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mono mt-2 inline-flex items-center gap-1 text-accent-text underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+                >
+                  On Strava
+                  <span aria-hidden>↗</span>
+                </a>
               </RevealItem>
             </RevealGroup>
 

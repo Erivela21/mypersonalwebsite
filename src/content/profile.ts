@@ -167,22 +167,26 @@ export const doing = {
 /* ---------------------------------------------------------------- moving -- */
 
 export const moving = {
-  title: "Fourteen and a half hours",
-  lede: "The furthest I've run in one go, at a race called Estrelaçor in the Serra da Estrela. I started at eleven at night.",
+  title: "Eighty nine of a hundred and three",
+  lede: "I signed up for the 103 km at Estrelaçor, in the Serra da Estrela. I got to 89 and stopped.",
   body: [
-    "I'm not going to pretend most of it was fun. The thing I'm proud of isn't the distance, it's that I didn't stop when it got bad.",
-    "That's the part that carries over. Anything I'm decent at, I'm decent at for the same reason. I'm still there after it stops being interesting.",
+    "Fourteen and a half hours, most of it in the dark, and I quit about fourteen kilometres from the finish. I'm not going to dress that up as anything else.",
+    "I still got something out of it. I found out how far past the point of it being bad I can keep going, which is further than I thought, just not far enough that day.",
+    "That's the part that carries over into everything else I do. And I'm going back for the rest of it.",
   ],
   /**
    * Everything here is measured from Enrique's own GPX, in src/content/route.ts.
-   * The location is derived from the coordinates in that file, not assumed.
+   * The Serra da Estrela location is derived from the coordinates in that file
+   * and the 1,995 m high point, which is Torre. Neither is assumed.
    *
-   * Note: he described the race as 103 km. His watch recorded 89.2 km over a
-   * continuous 14h 32m with no gaps. The recorded figure is what the site
-   * shows, because it is the one that can be verified from the file.
+   * The two distance figures are the whole point of this section: he entered a
+   * 103 km race and covered 89.2 km of it. Do not collapse them into one
+   * number, and do not describe this as a finish.
    */
+  stravaUrl: "https://www.strava.com/activities/16032912335",
   stats: [
-    { label: "Distance", value: "89.2", unit: "km" },
+    { label: "I covered", value: "89.2", unit: "km" },
+    { label: "Full course", value: "103", unit: "km" },
     { label: "Moving time", value: "14h 32m", unit: "" },
     { label: "Climbing", value: "2,811", unit: "m" },
     { label: "Highest point", value: "1,995", unit: "m" },
