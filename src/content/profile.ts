@@ -19,10 +19,11 @@ export const person = {
   linkedin: "https://www.linkedin.com/in/enrique-rivela/",
   location: "São Paulo, Brazil",
   /**
-   * Drop the PDF at public/enrique-rivela-cv.pdf and this link works.
-   * Set to null to hide it from the footer entirely.
+   * Removed at Enrique's request. The PDF carried his personal mobile number,
+   * which does not belong on a public page. Set a path here to bring the
+   * footer link back.
    */
-  cv: "/enrique-rivela-cv.pdf" as string | null,
+  cv: null as string | null,
 } as const;
 
 export const site = {
@@ -200,10 +201,10 @@ export const moving = {
     w: 768,
     h: 1024,
   } satisfies Shot & { caption: string },
-  film: {
-    src: "/video/ultra-run.mp4",
-    label: "During the race",
-  },
+  films: [
+    { src: "/video/ultra-run.mp4", label: "During the race" },
+    { src: "/video/ultra.mp4", label: "Training for it" },
+  ],
   others: [
     { name: "Football", note: "The one I've played the longest." },
     { name: "Tennis", note: "Good for days when I don't want to think." },
@@ -232,6 +233,29 @@ export const sound = {
   ],
   stage: "I get on stage sometimes too, which is a completely different kind of scary.",
   genres: ["Hip hop", "Rap", "Heavy metal", "Flamenco", "Whatever else"],
+  /**
+   * Artwork from releases he previously had on Spotify. These are separate from
+   * the two excerpts above, so the layout keeps them apart. Do not caption them
+   * as artwork for those tracks.
+   *
+   * Downscaled from an 11.7 MB 4864px master and a 1920px banner.
+   */
+  artwork: {
+    label: "Cover art",
+    note: "From a couple of albums I used to have up on Spotify.",
+    cover: {
+      src: "/media/covers/war-cover.jpg",
+      alt: "Album cover: a figure in tactical gear advancing through heavy smoke over scorched ground, two jets crossing the sky above, with a parental advisory label in the corner",
+      w: 1800,
+      h: 1800,
+    },
+    banner: {
+      src: "/media/covers/war-banner.jpg",
+      alt: "Wide artwork: overlapping glitched figures in tactical gear on a ruined boardwalk under a full moon",
+      w: 1920,
+      h: 810,
+    },
+  },
   /**
    * Twenty second excerpts, cut from the 24-bit and 32-bit float masters with
    * fades only at the cut points. His mix is otherwise untouched: no

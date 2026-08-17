@@ -42,7 +42,37 @@ export function Sound() {
           </Reveal>
         </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+        {/* Artwork from older releases. Deliberately its own block, so it
+            never reads as the artwork for the two excerpts above. */}
+        <div className="mt-20">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <Reveal>
+              <p className="mono text-accent-text">{sound.artwork.label}</p>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mono text-faint">{sound.artwork.note}</p>
+            </Reveal>
+          </div>
+
+          <div className="mt-5 grid gap-5 sm:grid-cols-[1fr_1.62fr] sm:items-center">
+            <Photo
+              src={sound.artwork.cover.src}
+              alt={sound.artwork.cover.alt}
+              w={sound.artwork.cover.w}
+              h={sound.artwork.cover.h}
+              sizes="(max-width: 640px) 92vw, 30vw"
+            />
+            <Photo
+              src={sound.artwork.banner.src}
+              alt={sound.artwork.banner.alt}
+              w={sound.artwork.banner.w}
+              h={sound.artwork.banner.h}
+              sizes="(max-width: 640px) 92vw, 50vw"
+            />
+          </div>
+        </div>
+
+        <div className="mt-20 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div>
             <div className="space-y-5">
               {sound.body.map((para) => (

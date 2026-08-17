@@ -95,10 +95,12 @@ export function Moving() {
               className="flex-1"
               sizes="(max-width: 1024px) 46vw, 30vw"
             />
-            <Reveal className="flex-1">
-              <Film src={moving.film.src} label={moving.film.label} />
-              <p className="mono mt-3 text-faint">{moving.film.label}</p>
-            </Reveal>
+            {moving.films.map((f) => (
+              <Reveal key={f.src} className="flex-1">
+                <Film src={f.src} label={f.label} />
+                <p className="mono mt-3 text-faint">{f.label}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </Container>
