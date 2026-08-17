@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw source media. Originals stay local; only the web-ready derivatives in
+# public/ are committed. See the README for how they are produced.
+/*.wav
+/*.mp4

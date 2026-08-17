@@ -62,12 +62,14 @@ export const hero = {
       focus: "50% 62%",
     },
     {
+      // A still pulled from his own race video, since there was no running
+      // photograph. Better than one anyway: it is actually mid-race.
       id: "running",
       label: "Running",
-      src: "/media/ultra.png",
-      alt: "Race kit being adjusted on the morning of an ultramarathon",
+      src: "/media/ultra-race.jpg",
+      alt: "Mid-race at the ultramarathon, wearing a hydration vest and race bib",
       tint: "clay",
-      focus: "56% 58%",
+      focus: "50% 10%",
     },
     {
       id: "music",
@@ -199,8 +201,8 @@ export const moving = {
     h: 1024,
   } satisfies Shot & { caption: string },
   film: {
-    src: "/video/ultra.mp4",
-    label: "Estrelaçor",
+    src: "/video/ultra-run.mp4",
+    label: "During the race",
   },
   others: [
     { name: "Football", note: "The one I've played the longest." },
@@ -230,10 +232,27 @@ export const sound = {
   ],
   stage: "I get on stage sometimes too, which is a completely different kind of scary.",
   genres: ["Hip hop", "Rap", "Heavy metal", "Flamenco", "Whatever else"],
-  /** Drop mp3s in /public/audio and list them here. The player appears. */
-  tracks: [] satisfies Track[],
+  /**
+   * Twenty second excerpts, cut from the 24-bit and 32-bit float masters with
+   * fades only at the cut points. His mix is otherwise untouched: no
+   * normalisation, no limiting, no level changes.
+   */
+  tracksLabel: "Two of mine",
+  tracksNote: "Twenty second excerpts. Headphones are better.",
+  tracks: [
+    {
+      title: "Trago al Suelo",
+      src: "/audio/trago-al-suelo.mp3",
+      note: "1:19",
+    },
+    {
+      title: "Welcome to the Hip-Hop",
+      src: "/audio/welcome-to-the-hip-hop.mp3",
+      note: "0:15",
+    },
+  ] satisfies Track[],
   toy: {
-    label: "Nothing to listen to yet",
+    label: "Or make your own",
     hint: "Drag across the strip. It makes a sound, which is about all I can promise.",
   },
   photos: [

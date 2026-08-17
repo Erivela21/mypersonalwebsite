@@ -1,4 +1,5 @@
 import { SoundStrip } from "@/components/art/SoundStrip";
+import { TrackPlayer } from "@/components/art/TrackPlayer";
 import { Chapter, Container, Eyebrow, Lede } from "@/components/primitives/Chapter";
 import { Film } from "@/components/primitives/Film";
 import { Photo } from "@/components/primitives/Photo";
@@ -23,9 +24,23 @@ export function Sound() {
           <Lede className="mt-7 max-w-2xl">{sound.lede}</Lede>
         </Reveal>
 
-        <Reveal delay={0.16} className="mt-12">
-          <SoundStrip hint={sound.toy.hint} />
-        </Reveal>
+        {/* His actual music comes first. The playable strip is the aside. */}
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+          <Reveal delay={0.16}>
+            <TrackPlayer
+              tracks={sound.tracks}
+              label={sound.tracksLabel}
+              note={sound.tracksNote}
+            />
+          </Reveal>
+
+          <Reveal delay={0.22}>
+            <p className="mono text-faint">{sound.toy.label}</p>
+            <div className="mt-4">
+              <SoundStrip hint={sound.toy.hint} />
+            </div>
+          </Reveal>
+        </div>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div>
