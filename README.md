@@ -12,6 +12,34 @@ npm run lint
 
 ---
 
+## The route data
+
+`src/content/route.ts` is generated, not written. It comes from Enrique's Strava
+GPX export via:
+
+```bash
+node --stack-size=8000 scripts/parse-gpx.mjs <input.gpx> route.json
+```
+
+The raw export is 14.5 MB and 52,291 trackpoints. **Do not commit it.** The
+script reduces it to 547 points with Ramer-Douglas-Peucker at a 20 m tolerance,
+which is ~19 KB of TypeScript and holds every real bend in the course.
+
+Two things in there are deliberate:
+
+- **Elevation gain is computed from a smoothed trace**, not from raw deltas.
+  Summing every positive GPS delta over 52k points inflates gain by a large
+  factor, because barometric noise reads as thousands of tiny climbs. The script
+  takes a rolling mean over a 15-point window, then only counts rises above
+  1.5 m.
+- **Coordinates are centred in a 0..1 box with true aspect preserved**, so the
+  component can use a fixed viewBox and never recompute a bounding box.
+
+Every number in the Moving chapter is measured from this file. Note that the
+recorded distance is 89.2 km, while Enrique described the race as 103 km. The
+recorded figure is what the site shows, because it is the one that can be
+verified. If the discrepancy is resolved, change it in `moving.stats`.
+
 ## Voice
 
 The copy rules are not stylistic preferences, they are the brief:

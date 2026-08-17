@@ -1,23 +1,13 @@
-import { Ridge } from "@/components/art/Ridge";
+import { RouteMap } from "@/components/art/RouteMap";
 import { Chapter, Container, Eyebrow, Lede } from "@/components/primitives/Chapter";
 import { Film } from "@/components/primitives/Film";
 import { Photo } from "@/components/primitives/Photo";
 import { Reveal, RevealGroup, RevealItem } from "@/components/primitives/Reveal";
 import { SplitHeading } from "@/components/primitives/SplitHeading";
 import { moving } from "@/content/profile";
+import { route } from "@/content/route";
 
 export function Moving() {
-  const { race } = moving;
-
-  // Only real, confirmed numbers appear. Anything still unknown stays absent
-  // rather than being estimated into existence.
-  const stats = [
-    { label: "Distance", value: `${race.distanceKm} km` },
-    race.finishTime ? { label: "Time", value: race.finishTime } : null,
-    race.elevationGainM ? { label: "Climb", value: `${race.elevationGainM} m` } : null,
-    race.date ? { label: "When", value: race.date } : null,
-  ].filter(Boolean) as { label: string; value: string }[];
-
   return (
     <Chapter id="moving" tint="clay" className="py-24 sm:py-32">
       <Container>
@@ -36,24 +26,29 @@ export function Moving() {
       </Container>
 
       <Container wide className="mt-14">
-        <Ridge />
+        <RouteMap />
       </Container>
 
       <Container className="mt-16">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <div>
+            {/* Every figure here is measured from his own GPX. Nothing is
+                rounded up and nothing is estimated. */}
             <RevealGroup className="flex flex-wrap gap-x-12 gap-y-6 border-b border-rule pb-8">
-              {stats.map((s) => (
+              {moving.stats.map((s) => (
                 <RevealItem key={s.label}>
                   <p className="mono text-faint">{s.label}</p>
                   <p className="numeral mt-1.5 text-[1.75rem] leading-none text-accent-text">
                     {s.value}
+                    {s.unit && (
+                      <span className="ml-1 text-[1.05rem] text-faint">{s.unit}</span>
+                    )}
                   </p>
                 </RevealItem>
               ))}
               <RevealItem>
                 <p className="mono text-faint">Race</p>
-                <p className="mt-1.5 text-[1.75rem] leading-none">{race.name}</p>
+                <p className="mt-1.5 text-[1.75rem] leading-none">{route.name}</p>
               </RevealItem>
             </RevealGroup>
 
