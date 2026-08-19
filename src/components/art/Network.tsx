@@ -183,6 +183,9 @@ export function Network({ className = "" }: { className?: string }) {
     for (let i = 0; i < 120; i++) step();
 
     const draw = () => {
+      raf = requestAnimationFrame(draw);
+      // Stand down while an in-page jump is animating.
+      if (document.documentElement.hasAttribute("data-jumping")) return;
       frame++;
       if (!reduced) step();
 
@@ -278,7 +281,6 @@ export function Network({ className = "" }: { className?: string }) {
       }
 
       ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(draw);
     };
 
     raf = requestAnimationFrame(draw);

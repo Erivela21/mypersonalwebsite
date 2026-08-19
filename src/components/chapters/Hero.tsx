@@ -20,7 +20,11 @@ export function Hero() {
       {/* Loads in its own chunk, only once visible, never under reduced
           motion. Sits under the CSS wash so it reads as light in the sky
           rather than as a neon aurora. */}
-      <AuroraBackdrop className="-z-10 h-[62%]" opacity={0.52} />
+      <AuroraBackdrop
+        className="-z-10 h-[62%]"
+        opacity={0.52}
+        fade="0%, black 12%, black 48%, transparent 100%"
+      />
 
       <Container wide>
         <div className="text-center">

@@ -121,6 +121,8 @@ export function TrackPlayer({
 
     let t = 0;
     const draw = () => {
+      raf = requestAnimationFrame(draw);
+      if (document.documentElement.hasAttribute("data-jumping")) return;
       const r = canvas.getBoundingClientRect();
       const w = r.width;
       const h = r.height;
@@ -161,7 +163,6 @@ export function TrackPlayer({
 
       ctx.globalAlpha = 1;
       t += 1;
-      raf = requestAnimationFrame(draw);
     };
 
     raf = requestAnimationFrame(draw);

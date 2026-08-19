@@ -239,6 +239,26 @@ a {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+
+  /* The blobs below are positioned past the edges of this box and blurred by
+     70px, so `overflow: hidden` slices them off mid-blur and leaves a hard
+     horizontal line wherever one chapter meets the next. Fading the mask out
+     at the top and bottom lets each chapter's colour dissolve into its
+     neighbours instead of stopping at a seam. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 15%,
+    #000 85%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 15%,
+    #000 85%,
+    transparent 100%
+  );
 }
 
 .wash::before,

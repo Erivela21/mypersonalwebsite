@@ -83,6 +83,8 @@ export function SoundStrip({ hint }: { hint: string }) {
     const faint = colors["--ink-faint"] || "#6b7a70";
 
     const draw = () => {
+      raf = requestAnimationFrame(draw);
+      if (document.documentElement.hasAttribute("data-jumping")) return;
       const r = canvas.getBoundingClientRect();
       const w = r.width;
       const h = r.height;
@@ -123,7 +125,6 @@ export function SoundStrip({ hint }: { hint: string }) {
 
       ctx.globalAlpha = 1;
       t += 1;
-      raf = requestAnimationFrame(draw);
     };
 
     raf = requestAnimationFrame(draw);

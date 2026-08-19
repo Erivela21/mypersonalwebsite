@@ -224,7 +224,7 @@ export default function Aurora({
     let raf = 0;
     const frame = (t: number) => {
       raf = requestAnimationFrame(frame);
-      if (pausedRef.current || document.hidden) return;
+      if (pausedRef.current || document.hidden || document.documentElement.hasAttribute("data-jumping")) return;
 
       // Recompute colour uniforms only when the palette actually changed,
       // rather than allocating three Colors every single frame.

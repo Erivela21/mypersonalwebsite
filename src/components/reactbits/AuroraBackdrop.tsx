@@ -24,9 +24,12 @@ const VARS = ["--moss", "--river", "--gold"] as const;
 export function AuroraBackdrop({
   className = "",
   opacity = 0.5,
+  fade = "0%, black 22%, black 68%, transparent 100%",
 }: {
   className?: string;
   opacity?: number;
+  /** Gradient stops for the alpha mask, after the leading `transparent`. */
+  fade?: string;
 }) {
   const [ref, visible] = useInViewport<HTMLDivElement>("200px");
   const reduced = useReducedMotionSafe();
@@ -50,7 +53,16 @@ export function AuroraBackdrop({
       ref={ref}
       aria-hidden
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
-      style={{ opacity }}
+      style={{
+        opacity,
+        // The shader fills its whole box with non-zero alpha, so the edge of
+        // this container reads as a hard horizontal seam across the page,
+        // which is very obvious against a dark background. Masking the top and
+        // bottom to transparent lets it dissolve into the section instead of
+        // stopping at a line.
+        maskImage: `linear-gradient(to bottom, transparent ${fade})`,
+        WebkitMaskImage: `linear-gradient(to bottom, transparent ${fade})`,
+      }}
     >
       {ready && <Aurora colorStops={stops} paused={!visible} />}
     </div>

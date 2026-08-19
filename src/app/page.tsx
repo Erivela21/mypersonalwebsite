@@ -1,5 +1,6 @@
 import { ChapterRail } from "@/components/chrome/ChapterRail";
 import { MobileChapters } from "@/components/chrome/MobileChapters";
+import { SmoothScroll } from "@/components/chrome/SmoothScroll";
 import { Cursor } from "@/components/chrome/Cursor";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { ThemeToggle } from "@/components/chrome/ThemeToggle";
@@ -32,6 +33,7 @@ export default function Page() {
       <Cursor />
       <ChapterRail />
       <MobileChapters />
+      <SmoothScroll />
       <ThemeToggle />
 
       <main id="main">

@@ -15,7 +15,11 @@ export function Now() {
     <Chapter id="now" tint="gold" className="relative overflow-hidden py-24 sm:py-32">
       {/* The last chapter gets the same light as the first, so the site closes
           where it opened. Same lazy chunk, already fetched by this point. */}
-      <AuroraBackdrop className="-z-10 top-auto h-[55%]" opacity={0.34} />
+      <AuroraBackdrop
+        className="-z-10 top-auto h-[55%]"
+        opacity={0.34}
+        fade="0%, black 55%, black 88%, transparent 100%"
+      />
 
       <Container>
         <Reveal>
