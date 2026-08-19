@@ -1,4 +1,5 @@
 import { BookCover } from "@/components/art/BookCover";
+import { AuroraBackdrop } from "@/components/reactbits/AuroraBackdrop";
 import { Chapter, Container, Eyebrow, Lede } from "@/components/primitives/Chapter";
 import { Reveal, RevealGroup, RevealItem } from "@/components/primitives/Reveal";
 import { SplitHeading } from "@/components/primitives/SplitHeading";
@@ -12,6 +13,10 @@ import { now } from "@/content/profile";
 export function Now() {
   return (
     <Chapter id="now" tint="gold" className="relative overflow-hidden py-24 sm:py-32">
+      {/* The last chapter gets the same light as the first, so the site closes
+          where it opened. Same lazy chunk, already fetched by this point. */}
+      <AuroraBackdrop className="-z-10 top-auto h-[55%]" opacity={0.34} />
+
       <Container>
         <Reveal>
           <Eyebrow>Now</Eyebrow>

@@ -73,7 +73,7 @@ export function Sound() {
             <RevealGroup className="mt-8 flex flex-wrap gap-2" step={0.04}>
               {sound.genres.map((g) => (
                 <RevealItem key={g}>
-                  <span className="mono inline-block rounded-full border border-rule px-3.5 py-1.5 text-soft transition-colors hover:border-accent hover:text-accent-text">
+                  <span className="mono inline-block rounded-full border border-rule px-3.5 py-1.5 text-soft transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 hover:text-accent-text hover:shadow-[0_6px_14px_-8px_var(--accent)]">
                     {g}
                   </span>
                 </RevealItem>

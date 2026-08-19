@@ -13,7 +13,7 @@ const LINKS = [
 
 export function SiteFooter() {
   return (
-    <Chapter as="footer" id="footer" tint="moss" className="border-t border-rule py-16">
+    <Chapter as="footer" id="footer" tint="moss" className="border-t border-rule pt-16 pb-28 lg:pb-16">
       <Container>
         <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-10">
           <Reveal>

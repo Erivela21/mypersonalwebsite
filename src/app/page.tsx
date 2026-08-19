@@ -1,4 +1,5 @@
 import { ChapterRail } from "@/components/chrome/ChapterRail";
+import { MobileChapters } from "@/components/chrome/MobileChapters";
 import { Cursor } from "@/components/chrome/Cursor";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { ThemeToggle } from "@/components/chrome/ThemeToggle";
@@ -30,6 +31,7 @@ export default function Page() {
       <div aria-hidden className="grain" />
       <Cursor />
       <ChapterRail />
+      <MobileChapters />
       <ThemeToggle />
 
       <main id="main">

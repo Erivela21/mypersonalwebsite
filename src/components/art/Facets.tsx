@@ -72,9 +72,23 @@ export function Facets() {
 
       {/* Small screens: the same cards, swipeable, no cleverness. */}
       <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 sm:hidden">
-        {hero.facets.map((f) => (
-          <figure key={f.id} className="w-[62vw] shrink-0 snap-center">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[3px] bg-sunk shadow-[var(--shadow-soft)]">
+        {hero.facets.map((f, i) => (
+          <motion.figure
+            key={f.id}
+            className="w-[64vw] shrink-0 snap-center"
+            initial={reduced ? undefined : { opacity: 0, y: 26 }}
+            animate={reduced ? undefined : { opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.16 + i * 0.07,
+              type: "spring",
+              stiffness: 95,
+              damping: 18,
+            }}
+            // Same alternating tilt as the desktop arrangement, so the two
+            // layouts read as the same object rather than two designs.
+            style={{ rotate: i % 2 === 0 ? -1.6 : 1.6 }}
+          >
+            <div className="relative aspect-[3/4] overflow-hidden rounded-[3px] bg-sunk shadow-[0_2px_6px_rgb(0_0_0_/_0.08),0_16px_34px_-18px_rgb(0_0_0_/_0.34)]">
               <Image
                 src={f.src}
                 alt={f.alt}
@@ -86,12 +100,12 @@ export function Facets() {
               />
             </div>
             <figcaption
-              className="mono mt-2.5"
+              className="mono mt-2.5 text-center"
               style={{ color: TINT[f.tint] }}
             >
               {f.label}
             </figcaption>
-          </figure>
+          </motion.figure>
         ))}
       </div>
     </>

@@ -17,7 +17,7 @@ export const person = {
   email: "erivelagomez@gmail.com",
   github: "https://github.com/Erivela21",
   linkedin: "https://www.linkedin.com/in/enrique-rivela/",
-  location: "São Paulo, Brazil",
+  location: "Spain",
   /**
    * Removed at Enrique's request. The PDF carried his personal mobile number,
    * which does not belong on a public page. Set a path here to bring the
@@ -70,14 +70,12 @@ export const hero = {
       focus: "50% 62%",
     },
     {
-      // A still pulled from his own race video, since there was no running
-      // photograph. Better than one anyway: it is actually mid-race.
       id: "running",
       label: "Running",
-      src: "/media/ultra-race.jpg",
-      alt: "Mid-race at the ultramarathon, wearing a hydration vest and race bib",
+      src: "/media/race-start.jpg",
+      alt: "Four friends in the starting pen of a road race in Madrid, packed in with hundreds of other runners before the gun",
       tint: "clay",
-      focus: "50% 10%",
+      focus: "50% 62%",
     },
     {
       id: "music",
@@ -124,7 +122,7 @@ export const doing = {
       src: "/media/ourense.png",
       alt: "A still river pool over granite slabs with oak trees behind and a dog asleep on the sand",
       caption:
-        "Ourense, Galicia. That's my dog, asleep on the sand like he always is.",
+        "Ourense, Galicia. That's my uncle's dog, asleep on the sand like he always is.",
       w: 768,
       h: 1024,
     },
@@ -178,11 +176,11 @@ export const doing = {
 
 export const moving = {
   title: "Eighty nine of a hundred and three",
-  lede: "I signed up for the 103 km at Estrelaçor, in the Serra da Estrela. I got to 89 and stopped.",
+  lede: "I signed up for the 103 km at Estrelaçor, in the Serra da Estrela. I got to 89 and wasn't allowed to carry on.",
   body: [
-    "Fourteen and a half hours, most of it in the dark, and I quit about fourteen kilometres from the finish. I'm not going to dress that up as anything else.",
-    "I still got something out of it. I found out how far past the point of it being bad I can keep going, which is further than I thought, just not far enough that day.",
-    "That's the part that carries over into everything else I do. And I'm going back for the rest of it.",
+    "Fourteen and a half hours, most of it in the dark. I was pulled about fourteen kilometres from the finish because I was missing a piece of the required kit. Not because I wanted to stop.",
+    "That's a stupid way to end a race and it's entirely on me for not checking properly. It also means I never found out where my actual limit was that day, which is the part that still bothers me.",
+    "I'm going back for the rest of it, with the right kit this time.",
   ],
   /**
    * Everything here is measured from Enrique's own GPX, in src/content/route.ts.
@@ -289,12 +287,10 @@ export const sound = {
     {
       title: "Trago al Suelo",
       src: "/audio/trago-al-suelo.mp3",
-      note: "1:19",
     },
     {
       title: "Welcome to the Hip-Hop",
       src: "/audio/welcome-to-the-hip-hop.mp3",
-      note: "0:15",
     },
   ] satisfies Track[],
   toy: {
@@ -392,13 +388,12 @@ export const now = {
   body: [
     // The one place the journey is stated, now that Places is gone.
     "For context: I was born in Madrid, moved to Menlo Park in California when I was seven, went back to Madrid at twelve and stayed nine years, and now I'm here.",
-    "Still running. Still making music. Still working through Hack The Box at night. Still learning Portuguese properly and starting on Japanese, which is going about as well as you'd expect.",
     "After this I go back for my final year at IE. Then I'd like to work in security. That's the whole plan and I know it isn't much of one.",
   ],
   book: {
     title: "The Midnight Library",
     author: "Matt Haig",
-    note: "My favourite book. It's about all the lives you could've lived instead of this one.",
+    note: "My favourite book, and the one I'd tell anyone to read. It's about all the lives you could've lived instead of this one.",
   },
   spokenLabel: "Languages I speak",
   spokenLanguages: [
@@ -407,7 +402,7 @@ export const now = {
     { name: "Portuguese", level: "Advanced" },
     { name: "Japanese", level: "Learning" },
   ],
-  readingLabel: "What I am reading",
+  readingLabel: "What I'd recommend",
 } as const;
 
 /* -------------------------------------------------------------- chapters -- */
