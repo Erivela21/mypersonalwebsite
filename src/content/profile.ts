@@ -187,13 +187,23 @@ export const moving = {
    * number, and do not describe this as a finish.
    */
   stravaUrl: "https://www.strava.com/activities/16032912335",
+  /**
+   * `count` marks a figure as a real number that can be animated up from zero.
+   * Moving time is a duration, not a quantity, so it has none and renders flat.
+   */
   stats: [
-    { label: "I covered", value: "89.2", unit: "km" },
-    { label: "Full course", value: "103", unit: "km" },
+    { label: "I covered", value: "89.2", unit: "km", count: 89.2 },
+    { label: "Full course", value: "103", unit: "km", count: 103 },
     { label: "Moving time", value: "14h 32m", unit: "" },
-    { label: "Climbing", value: "2,811", unit: "m" },
-    { label: "Highest point", value: "1,995", unit: "m" },
-  ],
+    { label: "Climbing", value: "2,811", unit: "m", count: 2811, separator: "," },
+    { label: "Highest point", value: "1,995", unit: "m", count: 1995, separator: "," },
+  ] as {
+    label: string;
+    value: string;
+    unit: string;
+    count?: number;
+    separator?: string;
+  }[],
   photo: {
     src: "/media/ultra.png",
     alt: "Race kit laid out on a table with a hydration vest being adjusted",
@@ -243,18 +253,23 @@ export const sound = {
   artwork: {
     label: "Cover art",
     note: "From a couple of albums I used to have up on Spotify.",
-    cover: {
-      src: "/media/covers/war-cover.jpg",
-      alt: "Album cover: a figure in tactical gear advancing through heavy smoke over scorched ground, two jets crossing the sky above, with a parental advisory label in the corner",
-      w: 1800,
-      h: 1800,
-    },
-    banner: {
-      src: "/media/covers/war-banner.jpg",
-      alt: "Wide artwork: overlapping glitched figures in tactical gear on a ruined boardwalk under a full moon",
-      w: 1920,
-      h: 810,
-    },
+    hint: "Drag it, click it, or use the button.",
+    covers: [
+      {
+        src: "/media/covers/war-banner.jpg",
+        alt: "Wide artwork: overlapping glitched figures in tactical gear on a ruined boardwalk under a full moon",
+        label: "Wide artwork",
+        w: 1920,
+        h: 810,
+      },
+      {
+        src: "/media/covers/war-cover.jpg",
+        alt: "Album cover: a figure in tactical gear advancing through heavy smoke over scorched ground, two jets crossing the sky above, with a parental advisory label in the corner",
+        label: "Album cover",
+        w: 1800,
+        h: 1800,
+      },
+    ],
   },
   /**
    * Twenty second excerpts, cut from the 24-bit and 32-bit float masters with

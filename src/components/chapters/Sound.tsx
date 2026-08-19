@@ -1,5 +1,6 @@
 import { SoundStrip } from "@/components/art/SoundStrip";
 import { TrackPlayer } from "@/components/art/TrackPlayer";
+import { CoverStack } from "@/components/reactbits/CoverStack";
 import { Chapter, Container, Eyebrow, Lede } from "@/components/primitives/Chapter";
 import { Film } from "@/components/primitives/Film";
 import { Photo } from "@/components/primitives/Photo";
@@ -54,22 +55,9 @@ export function Sound() {
             </Reveal>
           </div>
 
-          <div className="mt-5 grid gap-5 sm:grid-cols-[1fr_1.62fr] sm:items-center">
-            <Photo
-              src={sound.artwork.cover.src}
-              alt={sound.artwork.cover.alt}
-              w={sound.artwork.cover.w}
-              h={sound.artwork.cover.h}
-              sizes="(max-width: 640px) 92vw, 30vw"
-            />
-            <Photo
-              src={sound.artwork.banner.src}
-              alt={sound.artwork.banner.alt}
-              w={sound.artwork.banner.w}
-              h={sound.artwork.banner.h}
-              sizes="(max-width: 640px) 92vw, 50vw"
-            />
-          </div>
+          <Reveal delay={0.1} className="mt-5 block max-w-2xl">
+            <CoverStack covers={sound.artwork.covers} hint={sound.artwork.hint} />
+          </Reveal>
         </div>
 
         <div className="mt-20 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">

@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { Facets } from "@/components/art/Facets";
+import { AuroraBackdrop } from "@/components/reactbits/AuroraBackdrop";
 import { Chapter, Container } from "@/components/primitives/Chapter";
 import { hero, person } from "@/content/profile";
 import { useReducedMotionSafe } from "@/lib/hooks";
@@ -16,6 +17,11 @@ export function Hero() {
       tint="moss"
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-16"
     >
+      {/* Loads in its own chunk, only once visible, never under reduced
+          motion. Sits under the CSS wash so it reads as light in the sky
+          rather than as a neon aurora. */}
+      <AuroraBackdrop className="-z-10 h-[62%]" opacity={0.52} />
+
       <Container wide>
         <div className="text-center">
           <motion.h1

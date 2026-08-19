@@ -1,4 +1,6 @@
 import { RouteMap } from "@/components/art/RouteMap";
+import { CountUp } from "@/components/reactbits/CountUp";
+import { Magnet } from "@/components/reactbits/Magnet";
 import { Chapter, Container, Eyebrow, Lede } from "@/components/primitives/Chapter";
 import { Film } from "@/components/primitives/Film";
 import { Photo } from "@/components/primitives/Photo";
@@ -39,7 +41,11 @@ export function Moving() {
                 <RevealItem key={s.label}>
                   <p className="mono text-faint">{s.label}</p>
                   <p className="numeral mt-1.5 text-[1.75rem] leading-none text-accent-text">
-                    {s.value}
+                    {s.count !== undefined ? (
+                      <CountUp to={s.count} separator={s.separator} />
+                    ) : (
+                      s.value
+                    )}
                     {s.unit && (
                       <span className="ml-1 text-[1.05rem] text-faint">{s.unit}</span>
                     )}
@@ -51,15 +57,17 @@ export function Moving() {
                 <p className="mt-1.5 text-[1.75rem] leading-none">{route.name}</p>
                 {/* Anyone can go and check the run themselves, which is a
                     stronger claim than any number set in a nice typeface. */}
-                <a
-                  href={moving.stravaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mono mt-2 inline-flex items-center gap-1 text-accent-text underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
-                >
-                  On Strava
-                  <span aria-hidden>↗</span>
-                </a>
+                <Magnet radius={70} strength={4} className="mt-2">
+                  <a
+                    href={moving.stravaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mono inline-flex items-center gap-1 text-accent-text underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+                  >
+                    On Strava
+                    <span aria-hidden>↗</span>
+                  </a>
+                </Magnet>
               </RevealItem>
             </RevealGroup>
 

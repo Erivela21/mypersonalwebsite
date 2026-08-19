@@ -42,6 +42,29 @@ race and covered 89.2 km of it before stopping. Do not collapse them into one
 number, do not round 89.2 up, and do not describe the run as a finish. The trace
 ends where he stopped, which is why the end marker on the map reads `STOPPED`.
 
+## React Bits
+
+`src/components/reactbits/` holds four components adapted from
+[React Bits](https://reactbits.dev) (MIT): `CountUp`, `Magnet`, `CoverStack`
+(their `Stack`) and `Aurora`. Each file documents what changed and why. The
+recurring themes:
+
+- **They are written as demos.** Several mutate refs during render, call
+  `Math.random()` during render (hydration mismatch), or allocate inside a
+  `requestAnimationFrame` loop.
+- **None of them handled `prefers-reduced-motion`.** All four do now.
+- **None were keyboard reachable.** `CoverStack` needed a real button, or the
+  cards underneath were unreachable.
+
+`Aurora` is the only one with a dependency (`ogl`). It is loaded through
+`AuroraBackdrop`, which `next/dynamic`s it into a separate ~49 KB chunk and
+mounts it only when visible and only when reduced motion is off. Measured: a
+reduced-motion visitor fetches 663 KB of JS, everyone else 712 KB, so the shader
+is genuinely opt-in rather than a tax on the whole site.
+
+Its colours are read from the live CSS tokens, so day and midnight get different
+auroras from one shader.
+
 ## Voice
 
 The copy rules are not stylistic preferences, they are the brief:

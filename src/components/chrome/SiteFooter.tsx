@@ -1,5 +1,6 @@
 import { Chapter, Container } from "@/components/primitives/Chapter";
 import { Reveal } from "@/components/primitives/Reveal";
+import { Magnet } from "@/components/reactbits/Magnet";
 import { person } from "@/content/profile";
 
 const LINKS = [
@@ -25,9 +26,10 @@ export function SiteFooter() {
               {LINKS.map((l) => (
                 <li key={l.label}>
                   <p className="mono text-faint">{l.label}</p>
+                  <Magnet radius={60} strength={4} className="mt-1">
                   <a
                     href={l.href}
-                    className="group mt-1 inline-flex items-center gap-1.5 text-[1.0625rem] transition-colors hover:text-accent-text"
+                    className="group inline-flex items-center gap-1.5 text-[1.0625rem] transition-colors hover:text-accent-text"
                     {...(l.href.startsWith("http")
                       ? { target: "_blank", rel: "noreferrer noopener" }
                       : {})}
@@ -54,6 +56,7 @@ export function SiteFooter() {
                       </svg>
                     )}
                   </a>
+                  </Magnet>
                 </li>
               ))}
             </ul>
