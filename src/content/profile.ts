@@ -27,8 +27,15 @@ export const person = {
 } as const;
 
 export const site = {
-  // No domain yet. Set this when one exists and metadata picks it up.
-  url: "https://enriquerivela.com",
+  /**
+   * The stable Vercel production domain, not a per-deployment URL (those end
+   * in a random hash and change on every push).
+   *
+   * This one line feeds metadataBase, the canonical URL, sitemap.xml,
+   * robots.txt and the Open Graph share card. If a real domain is bought
+   * later, changing it here updates all of them.
+   */
+  url: "https://mypersonalwebsite-five-tau.vercel.app",
   title: "Enrique Rivela",
   tagline: "Computer science, cybersecurity, music and running.",
   description:
