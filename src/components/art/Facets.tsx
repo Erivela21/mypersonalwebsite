@@ -93,10 +93,14 @@ export function Facets() {
                 src={f.src}
                 alt={f.alt}
                 fill
-                sizes="62vw"
+                sizes="(max-width: 400px) 66vw, 64vw"
                 className="object-cover"
                 style={{ objectPosition: f.focus }}
-                priority={f.id === "outdoors"}
+                // Only the first card is on screen in the strip. Fetching all
+                // five eagerly was loading roughly 375 KB of photographs to
+                // show one, and it was the largest contentful paint.
+                priority={i === 0}
+                loading={i === 0 ? undefined : "lazy"}
               />
             </div>
             <figcaption
@@ -158,7 +162,9 @@ function Card({
           sizes="(max-width: 1280px) 22vw, 18vw"
           className="object-cover"
           style={{ objectPosition: facet.focus }}
-          priority={index < 3}
+          // The middle card is the visual anchor and the usual LCP element.
+          // The rest are in view but can arrive a beat later.
+          priority={index === 2}
         />
         {/* The card's own colour, only on hover, so the arrangement reads as
             photographs first and as a colour system second. */}

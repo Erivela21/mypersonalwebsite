@@ -113,13 +113,21 @@ export function MobileChapters() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            aria-label={`Chapter ${index + 1} of ${chapters.length}, ${current.label}. Open chapter list.`}
             className="flex w-full items-center gap-3 rounded-full border border-rule bg-raised/95 px-4 py-3 shadow-[var(--shadow-soft)] backdrop-blur"
           >
-            <span className="mono text-faint">
+            {/* No aria-label here. Overriding the name with one that did not
+                contain the visible text failed WCAG 2.5.3 (Label in Name),
+                which breaks voice control: saying "Me" would not activate a
+                button announced as "Chapter 1 of 7". The visible label is now
+                part of the accessible name, with the rest added for screen
+                readers and the decorative numerals hidden from them. */}
+            <span aria-hidden className="mono text-faint">
               {String(index + 1).padStart(2, "0")}/{chapters.length}
             </span>
             <span className="text-[1.0625rem] text-ink">{current.label}</span>
+            <span className="sr-only">
+              . Chapter {index + 1} of {chapters.length}. Open chapter list.
+            </span>
 
             {/* Progress across the whole page, drawn under the pill. */}
             <span

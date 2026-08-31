@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCssVars, useInViewport, useReducedMotionSafe } from "@/lib/hooks";
 
 /**
@@ -46,7 +46,27 @@ export function AuroraBackdrop({
     [moss, river, gold],
   );
 
-  const ready = visible && !reduced && stops.length === 3;
+  // A decorative background should never compete with the first paint. On a
+  // throttled phone the shader chunk was loading while the hero photograph was
+  // still arriving, and the photograph is what the visitor is actually waiting
+  // for. Waiting for idle costs nothing visually and takes the shader off the
+  // critical path entirely.
+  const [idle, setIdle] = useState(false);
+  useEffect(() => {
+    type RIC = (cb: () => void, opts?: { timeout: number }) => number;
+    const ric = (window as unknown as { requestIdleCallback?: RIC })
+      .requestIdleCallback;
+    if (ric) {
+      const id = ric(() => setIdle(true), { timeout: 2500 });
+      return () =>
+        (window as unknown as { cancelIdleCallback?: (h: number) => void })
+          .cancelIdleCallback?.(id);
+    }
+    const t = window.setTimeout(() => setIdle(true), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
+  const ready = idle && visible && !reduced && stops.length === 3;
 
   return (
     <div
