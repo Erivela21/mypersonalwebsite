@@ -17,7 +17,7 @@ export const person = {
   email: "erivelagomez@gmail.com",
   github: "https://github.com/Erivela21",
   linkedin: "https://www.linkedin.com/in/enrique-rivela/",
-  location: "Spain",
+  location: "São Paulo, Brazil",
   /**
    * Removed at Enrique's request. The PDF carried his personal mobile number,
    * which does not belong on a public page. Set a path here to bring the
@@ -403,6 +403,25 @@ export const now = {
     { name: "Japanese", level: "Learning" },
   ],
   readingLabel: "What I'd recommend",
+} as const;
+
+/* -------------------------------------------------------------- colophon -- */
+
+/**
+ * Kept deliberately short, and every claim is one that can be checked.
+ *
+ * The Lighthouse figures are accessibility, best practices and SEO only. Those
+ * are 100 on both mobile and desktop. Performance is 92 on desktop but far
+ * lower on a throttled phone, so it is not quoted: a number a visitor could
+ * disprove in thirty seconds is worse than no number.
+ */
+export const colophon = {
+  label: "About this site",
+  lines: [
+    "Built with Next.js, React and TypeScript. The animation is Motion, the route map and the network diagram are SVG and canvas, and the sound is the Web Audio API.",
+    "Scores 100 for accessibility, best practices and SEO. It works with JavaScript switched off, and with animation switched off.",
+  ],
+  repoLabel: "Source on GitHub",
 } as const;
 
 /* -------------------------------------------------------------- chapters -- */

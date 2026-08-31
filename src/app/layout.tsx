@@ -85,6 +85,15 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Motion renders an element's `initial` state into the server HTML as
+            an inline style, then animates it away on mount. With scripting
+            disabled that never happens, so anything with an entrance stays at
+            opacity 0 — including the h1 with his name on it. This reveals them
+            for readers without JavaScript, and costs nothing for everyone
+            else, since a browser running scripts ignores it entirely. */}
+        <noscript>
+          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
       <body>
         <MotionProvider>{children}</MotionProvider>

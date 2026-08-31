@@ -1,7 +1,7 @@
 import { Chapter, Container } from "@/components/primitives/Chapter";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Magnet } from "@/components/reactbits/Magnet";
-import { person } from "@/content/profile";
+import { colophon, person } from "@/content/profile";
 
 const LINKS = [
   { label: "Email", value: person.email, href: `mailto:${person.email}` },
@@ -15,6 +15,32 @@ export function SiteFooter() {
   return (
     <Chapter as="footer" id="footer" tint="moss" className="border-t border-rule pt-16 pb-28 lg:pb-16">
       <Container>
+        {/* The site is the portfolio piece, so it is worth saying briefly how
+            it was made. Kept to two lines, and only claims that a visitor
+            could verify themselves. */}
+        <Reveal>
+          <div className="mb-14 max-w-2xl border-l-2 border-accent pl-5">
+            <p className="mono text-accent-text">{colophon.label}</p>
+            {colophon.lines.map((line) => (
+              <p
+                key={line.slice(0, 20)}
+                className="mt-2.5 text-[0.9375rem] leading-relaxed text-soft"
+              >
+                {line}
+              </p>
+            ))}
+            <a
+              href={person.github + "/mypersonalwebsite"}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mono mt-3 inline-flex items-center gap-1.5 text-accent-text underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              {colophon.repoLabel}
+              <span aria-hidden>↗</span>
+            </a>
+          </div>
+        </Reveal>
+
         <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-10">
           <Reveal>
             <p className="font-display text-[1.6rem] leading-tight">{person.name}</p>
