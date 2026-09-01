@@ -35,7 +35,7 @@ export const site = {
    * robots.txt and the Open Graph share card. If a real domain is bought
    * later, changing it here updates all of them.
    */
-  url: "https://mypersonalwebsite-five-tau.vercel.app",
+  url: "https://enrique-rivela.vercel.app",
   title: "Enrique Rivela",
   tagline: "Computer science, cybersecurity, music and running.",
   description:
